@@ -1,1 +1,1 @@
-# Reposittório de exercícios Formação Tech em C#
+# Repositório de exercícios Formação Tech em C#
