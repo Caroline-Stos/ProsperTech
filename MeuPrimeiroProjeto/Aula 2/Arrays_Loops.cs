@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeuPrimeiroProjeto.Aula2
 {
-    internal class Arrays_Loops
+    internal class clsArrays_Loops
     {
         // Variaveis globais
         static string[] arrDiasSemana = new string[] { "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo" };
