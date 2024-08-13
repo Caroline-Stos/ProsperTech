@@ -30,9 +30,9 @@ namespace MeuPrimeiroProjeto.Aula_5
             List<string[]> andar_2 = new List<string[]> { carnes_cont4, carnes_cont5 };
 
             // Adicionando os andares no dicionario - geladeira
-            geladeira.Add("Andar 1", andar_0);
-            geladeira.Add("Andar 2", andar_1);
-            geladeira.Add("Andar 3", andar_2);
+            geladeira.Add("Andar 0", andar_0);
+            geladeira.Add("Andar 1", andar_1);
+            geladeira.Add("Andar 2", andar_2);
 
             // Exibindo os itens da geladira
             foreach (var andar in geladeira)
