@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MeuPrimeiroProjeto.Aula_5
 {
+    // Desafio do conteudo da aula 4 - Estrutura de dados
     internal class Geladeira
     {
         static public void Main()
