@@ -13,6 +13,4 @@ using System.Text;
 // Aula 2 - Arrays_Loops
 // clsArrays_Loops.TesteForEach();
 
-// Exercicio da geladeira - Feito por: Caroline de Lima Santos
-Geladeira.Main();
 
