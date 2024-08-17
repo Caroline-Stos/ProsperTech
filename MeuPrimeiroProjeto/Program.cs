@@ -1,42 +1,106 @@
 ﻿using MeuPrimeiroProjeto.Geladeira_Ex;
 
-// Aula 10 - Exercicio da geladeira Parte 2 - Feito por: Caroline de Lima Santos
+// Aula 10 - Exercicio da Geladeira Parte 2 - Feito por: Caroline de Lima Santos
 
-// Geladeira Parte 2
+Console.WriteLine("\nTestando Containers Isolado ------------------------------------------\n");
 
-// testando Container -----------------------------------------
-// Container NovoContainer = new Container();
-// NovoContainer.AddItem(0, "Maça");
-// NovoContainer.ListarItens();
-// NovoContainer.StatusContainer();
-// NovoContainer.RemoverItem("Maça");
-// NovoContainer.LimparContainer();
+Container NovoContainer = new Container();
 
-// testando Andar -----------------------------------------
+Console.WriteLine("\nAdicionando Novo Item: \n");
 
-//Andar HortiFruit =  new Andar();
+NovoContainer.AddItem(0, "Maça");
+NovoContainer.AddItem(1, "Uva");
+NovoContainer.AddItem(2, "Mamao");
+NovoContainer.AddItem(3, "Kiwi");
 
-//Console.WriteLine("Adicionando itens ao primeiro container:");
-//HortiFruit.ContainerList[0].AddItem(0, "Maçã");
-//HortiFruit.ContainerList[0].AddItem(1, "Laranja");
-//HortiFruit.ContainerList[0].AddItem(2, "Melão");
-//HortiFruit.ContainerList[0].AddItem(3, "Uva");
+Console.WriteLine("\nListando Item: \n");
 
-//HortiFruit.ContainerList[0].ListarItens();
+NovoContainer.ListarItens();
 
-// testando Geladeira -----------------------------------------
+Console.WriteLine("\nVerificando o status do container: \n");
 
-Geladeira_Poo minhaGeladeira = new Geladeira_Poo();
+NovoContainer.StatusContainer();
 
-// Adicionando itens aos andares
+Console.WriteLine("\nRemovendo um Item: \n");
+
+NovoContainer.RemoverItem("Maça");
+
+Console.WriteLine("\nEsvaziando container: \n");
+
+NovoContainer.LimparContainer();
+
+
+
+
+Console.WriteLine("\nTestando Andares Isolado ------------------------------------------\n");
+
+Andar HortiFruit =  new Andar();
+
+Console.WriteLine("\nAdicionando itens ao container 1 do andar HortiFruit: \n");
+
+HortiFruit.ContainerList[0].AddItem(0, "Maçã");
+HortiFruit.ContainerList[0].AddItem(1, "Laranja");
+
+Console.WriteLine("\nAdicionando itens ao container 2 do andar HortiFruit: \n");
+
+HortiFruit.ContainerList[1].AddItem(2, "Melão");
+HortiFruit.ContainerList[1].AddItem(3, "Uva");
+
+Console.WriteLine("\nListando os itens adicionados container 1: \n");
+HortiFruit.ContainerList[0].ListarItens();
+
+Console.WriteLine("\nListando os itens adicionados container 2: \n");
+HortiFruit.ContainerList[1].ListarItens();
+
+
+
+
+
+Console.WriteLine("\nTestando Geladeira ------------------------------------------\n");
+
+Geladeira minhaGeladeira = new Geladeira();
+
+Console.WriteLine("\nAdicionando itens ao andar Carnes: \n");
+
+// container 1
 minhaGeladeira.CarneAndar.ContainerList[0].AddItem(0, "Bife");
-minhaGeladeira.CarneAndar.ContainerList[1].AddItem(0, "Frango");
-minhaGeladeira.LaticAndar.ContainerList[0].AddItem(0, "Queijo");
-minhaGeladeira.FruitAndar.ContainerList[0].AddItem(0, "Maçã");
-minhaGeladeira.FruitAndar.ContainerList[1].AddItem(0, "Banana");
+minhaGeladeira.CarneAndar.ContainerList[0].AddItem(1, "Linguiça");
 
-//minhaGeladeira.VerGeladeira();
+// container 2
+minhaGeladeira.CarneAndar.ContainerList[1].AddItem(0, "Frango");
+minhaGeladeira.CarneAndar.ContainerList[1].AddItem(1, "Bacon");
+
+Console.WriteLine("\nAdicionando itens ao andar Laticinios: \n");
+
+// container 1
+minhaGeladeira.LaticAndar.ContainerList[0].AddItem(0, "Queijo");
+minhaGeladeira.LaticAndar.ContainerList[0].AddItem(1, "Iogurte");
+
+// container 2
+minhaGeladeira.LaticAndar.ContainerList[1].AddItem(0, "Leite fermentado");
+minhaGeladeira.LaticAndar.ContainerList[1].AddItem(1, "Leite");
+
+Console.WriteLine("\nAdicionando itens ao andar Frutas: \n");
+
+// container 1
+minhaGeladeira.FruitAndar.ContainerList[0].AddItem(0, "Maçã");
+minhaGeladeira.FruitAndar.ContainerList[0].AddItem(1, "Banana");
+
+// container 2
+minhaGeladeira.FruitAndar.ContainerList[1].AddItem(0, "Limão");
+minhaGeladeira.FruitAndar.ContainerList[1].AddItem(1, "Laranaj");
+
+Console.WriteLine("\nListando todos os itens na geladeira: \n");
+minhaGeladeira.VerGeladeira();
+
+Console.WriteLine("\nManipulando os itens adicionados: \n");
 
 minhaGeladeira.CarneAndar.ContainerList[0].ListarItens();
-minhaGeladeira.LaticAndar.ContainerList[0].ListarItens();
-minhaGeladeira.FruitAndar.ContainerList[0].ListarItens();
+
+minhaGeladeira.LaticAndar.ContainerList[0].RemoverItem("Leite");
+
+minhaGeladeira.FruitAndar.ContainerList[0].StatusContainer();
+
+minhaGeladeira.FruitAndar.ContainerList[1].LimparContainer();
+
+

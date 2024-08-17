@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeuPrimeiroProjeto.Geladeira_Ex
 {
-    internal class Geladeira_Poo
+    internal class Geladeira
     {
         // propriedades
         public Andar CarneAndar { get; set; } = new Andar();
@@ -22,7 +18,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex
             AdicionarItensDeAndar(LaticAndar, _todosItens);
             AdicionarItensDeAndar(FruitAndar, _todosItens);
 
-            Console.WriteLine(string.Join(", ", _todosItens)); 
+            //Console.WriteLine(string.Join(", ", _todosItens)); 
 
         }
 
@@ -30,7 +26,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex
         {
             foreach (var container in andar.ContainerList)
             {
-                var itensDoContainer = container.ListarItens().ToList(); // Chama o método ListarItens
+                var itensDoContainer = container.ListarItens(); // retorna uma lista dos itens
                 if (itensDoContainer != null && itensDoContainer.Any())
                 {
                     listaDeItens.AddRange(itensDoContainer);
