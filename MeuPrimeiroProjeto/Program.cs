@@ -1,25 +1,6 @@
-﻿using MeuPrimeiroProjeto.Aula1_1;
-using MeuPrimeiroProjeto.Aula1;
-using MeuPrimeiroProjeto.Aula2;
-using MeuPrimeiroProjeto.Aula_5;
-using MeuPrimeiroProjeto.Geladeira_Ex;
-using System.Text;
+﻿using MeuPrimeiroProjeto.Geladeira_Ex;
 
-// Aula 1 - Conversor de temperatura;
-// clsConvertTemp.Execute();
-
-// Aula 1 - DateTime;
-// clsDateTime.PrintDatas();
-
-// Aula 2 - Arrays_Loops;
-// clsArrays_Loops.TesteForEach
-
-// Aula 3 - Condições;
-
-// Aula 5 - Exercicio da geladeira - Feito por: Caroline de Lima Santos
-// Geladeira.Main();
-
-// Aula 6 - Versionamento GIT (teorico);
+// Aula 10 - Exercicio da geladeira Parte 2 - Feito por: Caroline de Lima Santos
 
 // Geladeira Parte 2
 
