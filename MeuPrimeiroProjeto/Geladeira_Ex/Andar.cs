@@ -9,11 +9,10 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex
 
         public Andar()
         {
-            // Inicializa com dois containers por padrão
+            // Inicializa com dois containers por padrão p/ andar
             ContainerList.Add(new Container());
             ContainerList.Add(new Container());
         }
-
 
     }
 }

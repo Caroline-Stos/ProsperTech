@@ -53,9 +53,6 @@ Console.WriteLine("\nListando os itens adicionados container 2: \n");
 HortiFruit.ContainerList[1].ListarItens();
 
 
-
-
-
 Console.WriteLine("\nTestando Geladeira ------------------------------------------\n");
 
 Geladeira minhaGeladeira = new Geladeira();

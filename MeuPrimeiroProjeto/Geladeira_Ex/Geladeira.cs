@@ -5,12 +5,12 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex
     internal class Geladeira
     {
         // propriedades
-        public Andar CarneAndar { get; set; } = new Andar();
+        public Andar CarneAndar { get; set; } = new Andar(); // inicializa já com os andares declarados e instanciados
         public Andar LaticAndar { get; set; } = new Andar();
         public Andar FruitAndar { get; set; } = new Andar();
 
         //metodos
-        public void VerGeladeira()
+        public void VerGeladeira() // metodo para ver todos os itens da geladeira
         {
             var _todosItens = new List<string>();
 
