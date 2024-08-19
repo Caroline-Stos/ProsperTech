@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MeuPrimeiroProjeto.Geladeira_Ex
+namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
 {
     internal class Andar
     {

@@ -1,5 +1,6 @@
-﻿using MeuPrimeiroProjeto.Aula_5;
-using MeuPrimeiroProjeto.Geladeira_Ex;
+﻿using MeuPrimeiroProjeto.Geladeira_Ex_P1;
+using MeuPrimeiroProjeto.Geladeira_Ex_P2;
+
 // Aula 5 - Exercicio da Geladeira Parte 1 - Feito por: Caroline de Lima Santos
 
 // Exercicio da geladeira - Feito por: Caroline de Lima Santos
@@ -60,7 +61,7 @@ HortiFruit.ContainerList[1].ListarItens();
 
 Console.WriteLine("\nTestando Geladeira ------------------------------------------\n");
 
-Geladeira minhaGeladeira = new Geladeira_P2();
+Geladeira_P2 minhaGeladeira = new Geladeira_P2();
 
 Console.WriteLine("\nAdicionando itens ao andar Carnes: \n");
 
@@ -93,6 +94,7 @@ minhaGeladeira.FruitAndar.ContainerList[1].AddItem(0, "Limão");
 minhaGeladeira.FruitAndar.ContainerList[1].AddItem(1, "Laranaj");
 
 Console.WriteLine("\nListando todos os itens na geladeira: \n");
+
 minhaGeladeira.VerGeladeira();
 
 Console.WriteLine("\nManipulando os itens adicionados: \n");

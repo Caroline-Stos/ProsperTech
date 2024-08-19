@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MeuPrimeiroProjeto.Aula_5
+namespace MeuPrimeiroProjeto.Geladeira_Ex_P1
 {
     public class Geladeira_P1
     {

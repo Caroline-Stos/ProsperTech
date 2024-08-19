@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MeuPrimeiroProjeto.Geladeira_Ex
+namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
 {
     internal class Container
     {
@@ -26,8 +26,14 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex
         }
         public void RemoverItem(string item) 
         {
-            ItensList.Remove(item);
-            Console.WriteLine($"{item} removido com sucesso.");
+            if (!ItensList.Contains(item)) {
+                Console.WriteLine("Este item não contém no container.");
+            }
+            else
+            {
+                ItensList.Remove(item);
+                Console.WriteLine($"{item} removido com sucesso.");
+            }
         }
         public void LimparContainer() // metodo adicional de esvaziar todo o container
         {
@@ -43,7 +49,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex
         }
         public List<string> ListarItens() // metodo adicional de listar todos os itens
         {
-            ItensList = ItensList.Where(i => !string.IsNullOrEmpty(i)).ToList();
+            ItensList = ItensList.Where(indice => !string.IsNullOrEmpty(indice)).ToList();
             foreach (string item in ItensList)
             {
                 Console.WriteLine(item + ", ");
@@ -52,7 +58,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex
         }
         public void StatusContainer() // metodo adicional de apresentar o status do container (vazio, posições vazias ou cheio)
         {
-            var itensPreenchidos = ItensList.Count(i => !string.IsNullOrEmpty(i));
+            var itensPreenchidos = ItensList.Count(indice => !string.IsNullOrEmpty(indice));
             if (itensPreenchidos == 4)
             {
                 Console.WriteLine("O container está totalmente cheio.");
