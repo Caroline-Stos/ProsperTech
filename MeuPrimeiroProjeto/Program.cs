@@ -1,7 +1,6 @@
 ﻿using MeuPrimeiroProjeto.Aula1_1;
 using MeuPrimeiroProjeto.Aula1;
 using MeuPrimeiroProjeto.Aula2;
-using MeuPrimeiroProjeto.Geladeira_Ex;
 using System.Text;
 
 // Aula 1 - Conversor de temperatura;
