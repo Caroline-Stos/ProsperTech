@@ -2,7 +2,7 @@
 
 namespace MeuPrimeiroProjeto.Geladeira_Ex
 {
-    internal class Geladeira
+    internal class Geladeira_P2
     {
         // propriedades
         public Andar CarneAndar { get; set; } = new Andar(); // inicializa já com os andares declarados e instanciados
