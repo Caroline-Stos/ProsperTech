@@ -1,2 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Semana_2.Aula_10;
+
+Geladeira_Poo.Main();

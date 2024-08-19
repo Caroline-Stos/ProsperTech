@@ -14,8 +14,9 @@ using System.Text;
 
 // Aula 3 - Condições;
 
-// Aula 5 - Exercicio da geladeira - Feito por: Caroline de Lima Santos
-// Geladeira.Main();
+// Aula 4 - Pendente;
+
+// Aula 5 - Exercicio da geladeira - Branch Exercicios
 
 // Aula 6 - Versionamento GIT (teorico);
 
