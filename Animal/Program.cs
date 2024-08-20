@@ -1,7 +1,11 @@
-﻿using Animal;
+﻿using Animais_Exercicio;
 
-Gatinho Tom = new Gatinho("Marrom");
+Felinos Gatinho = new Felinos("Marrom");
 
-Tom.FazerBarulho();
-Tom.Ronronar();
-Tom.Dormir();
+Gatinho.FazerBarulho();
+Gatinho.Cheirar();
+Gatinho.Dormir();
+Console.WriteLine(Gatinho.Olhos.ToString());
+Gatinho.Comer();
+Gatinho.Correr();
+Gatinho.Ronronar();

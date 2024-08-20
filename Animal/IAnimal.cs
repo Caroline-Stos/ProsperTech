@@ -1,6 +1,5 @@
 ﻿
-
-namespace Animal
+namespace Animais_Exercicio
 {
     internal interface IAnimal
     {
@@ -11,11 +10,11 @@ namespace Animal
         public bool Boca { get; set; }
 
         //metodos
-        string FazerBarulho();
-        string Cheirar();
-        string Comer();
-        string Dormir();
-        string Correr();
+        void FazerBarulho();
+        void Cheirar();
+        void Comer();
+        void Dormir();
+        void Correr();
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿
+using System.Threading.Channels;
 
-namespace Animal
+namespace Animais_Exercicio
 {
     public class Animal : IAnimal
     {
@@ -9,7 +10,7 @@ namespace Animal
         public bool Nariz { get; set; }
         public bool Boca { get; set; }
 
-        public Animal() 
+        public Animal()
         {
             Olhos = true;
             Ouvidos = true;
@@ -19,28 +20,27 @@ namespace Animal
         }
 
         //métodos
-        public virtual string FazerBarulho()
+        public virtual void FazerBarulho()
         {
-            return "Roarrrrrrr";
+            Console.WriteLine("Roarrrrrrr");
         }
-        public virtual string Cheirar()
+        public virtual void Cheirar()
         {
-            return "Sniff sniff";
+            Console.WriteLine("Sniff sniff"); 
         }
-        public virtual string Comer()
+        public virtual void Comer()
         {
             Boca = true;
-            return "Comendo";
+            Console.WriteLine("Comendo");
         }
-        public virtual string Dormir()
+        public virtual void Dormir()
         {
             Olhos = false;
-            return "ZZZZZZZZZZZ";
+            Console.WriteLine("ZZZZZZZZZZZ"); 
         }
-        public virtual string Correr()
+        public virtual void Correr()
         {
-            return "Correndo";
+            Console.WriteLine("Correndo"); 
         }
     }
-}
 }
