@@ -19,7 +19,3 @@ using System.Text;
 // Aula 5 - Exercicio da geladeira - Branch Exercicios
 
 // Aula 6 - Versionamento GIT (teorico);
-
-
-
-5555555
