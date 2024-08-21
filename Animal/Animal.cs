@@ -1,46 +1,33 @@
 ﻿
-using System.Threading.Channels;
-
 namespace Animais_Exercicio
 {
     public class Animal : IAnimal
     {
-        public bool Olhos { get; set; }
-        public bool Ouvidos { get; set; }
-        public bool Nariz { get; set; }
-        public bool Boca { get; set; }
+        // propriedades
+        public string Nome { get; set; } = "";
+        public string Especie { get; set; } = "";
+        public string Raça { get; set; } = "";
 
         public Animal()
         {
-            Olhos = true;
-            Ouvidos = true;
-            Nariz = true;
-            Boca = true;
             Console.WriteLine("Animal criado.");
         }
-
-        //métodos
+        // métodos
         public virtual void FazerBarulho()
         {
             Console.WriteLine("Roarrrrrrr");
         }
         public virtual void Cheirar()
         {
-            Console.WriteLine("Sniff sniff"); 
+            Console.WriteLine("Sniff sniff");
         }
         public virtual void Comer()
         {
-            Boca = true;
-            Console.WriteLine("Comendo");
+            Console.WriteLine("Nhac Nhac Nhac");
         }
         public virtual void Dormir()
         {
-            Olhos = false;
-            Console.WriteLine("ZZZZZZZZZZZ"); 
-        }
-        public virtual void Correr()
-        {
-            Console.WriteLine("Correndo"); 
+            Console.WriteLine("ZZZZZZZZZZZ");
         }
     }
 }

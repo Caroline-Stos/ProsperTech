@@ -4,21 +4,13 @@ namespace Animais_Exercicio
     public class Felinos : Animal
     {
         // propriedades
-        protected bool Patinhas { get; set; }
-        protected bool Rabo { get; set; }
-        protected string CorPelos { get; set; }
+        public string CorDoPelo { get; set; } = "";
+        public string Tamanho { get; set; } = "";
 
         // metodos
-        public Felinos(string corPelos)
-        {
-            Patinhas = true;
-            Rabo = true;
-            CorPelos = corPelos;
-        }
-
         public override void FazerBarulho()
         {
-            Console.WriteLine("Miauuuuuuu"); 
+            Console.WriteLine("Meeeooowwwww"); 
         }
         public void Ronronar()
         {
