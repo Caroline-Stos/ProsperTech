@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeladeiraAPI.Controllers
 {
+    // Atividade - Aula 15: Geladeira API
+    // Feito por: Adrielly Ribeiro da Silva, Aline dos Santos Araújo, Caroline de Lima Santos e Lillyan de Santana Rodrigues Teixeira
+
     [Route("api/[controller]")]
     [ApiController]
     public class GeladeiraController : ControllerBase
