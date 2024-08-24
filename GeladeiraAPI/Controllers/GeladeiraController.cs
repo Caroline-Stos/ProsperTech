@@ -14,21 +14,15 @@ namespace GeladeiraAPI.Controllers
             MinhaGeladeira = new Geladeira_P2();
 
             // criando novos itens
-            Item novoItem = new(0, "Maça"); // ID + Nome
-            Item novoItem2 = new(1, "Bacon");
-            Item novoItem3 = new(2, "Leite");
+            Item novoItem = new(1, "Maça"); 
+            Item novoItem2 = new(2, "Bacon");
+            Item novoItem3 = new(3, "Leite");
 
             // adicionando itens na geladeira para testar metodo GET
             MinhaGeladeira.AddItem("FruitAndar", 0, 0, novoItem);
             MinhaGeladeira.AddItem("CarneAndar", 0, 0, novoItem2);
             MinhaGeladeira.AddItem("LaticAndar", 0, 0, novoItem3);
 
-        }
-
-        [HttpPost] // OK
-        public string Post(string andar, int container, int posicao, Item item)
-        {
-            return MinhaGeladeira.AddItem(andar, container, posicao, item);
         }
 
         [HttpGet] // OK 
@@ -49,13 +43,43 @@ namespace GeladeiraAPI.Controllers
                         if (item != null)
                         {
                             if (item.Id == id)
-                                return Ok(item); // retorna o item encontrado
+                                return item; // retorna o item encontrado
                         }
                     }
                 }
             }
 
             return NotFound();
+        }
+
+        [HttpPost] // OK
+        public string Post(string andar, int container, int posicao, Item novoItem)
+        {
+            return MinhaGeladeira.AddItem(andar, container, posicao, novoItem);
+        }
+
+        [HttpPut("{id}")] // Ok
+        public ActionResult<Item> Put(int id, [FromBody] Item novoItem)
+        {
+            foreach (var andar in MinhaGeladeira.DictAndares.Values)
+            {
+                foreach (var container in andar.ContainerList)
+                {
+                    foreach (var item in container.ItensList)
+                    {
+                        if (item != null)
+                        {
+                            if (item.Id == id)
+                                item.Id = novoItem.Id;
+                                item.Nome = novoItem.Nome;
+                                return item; // Retorna o item atualizado
+                        }
+                    }
+                }
+            }
+
+            return NotFound();
+
         }
 
         [HttpDelete("{id}")] // Ok
@@ -70,13 +94,13 @@ namespace GeladeiraAPI.Controllers
                         if (item != null)
                         {
                             if (item.Id == id)
-                                return container.RemoverItem(item); // remove o item encontrado
+                                return container.RemoverItem(item); // Remove o item encontrado
                         }
                     }
                 }
             }
 
             return NotFound();
-        }   
+        }
     }
 }

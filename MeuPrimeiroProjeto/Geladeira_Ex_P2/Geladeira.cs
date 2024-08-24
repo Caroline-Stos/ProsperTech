@@ -113,6 +113,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
             foreach (var container in andar.ContainerList)
             {
                 var itensDoContainer = container.ListarItens(); // retorna uma lista dos itens
+
                 if (itensDoContainer != null && itensDoContainer.Any())
                 {
                     listaDeItens.Add(itensDoContainer);

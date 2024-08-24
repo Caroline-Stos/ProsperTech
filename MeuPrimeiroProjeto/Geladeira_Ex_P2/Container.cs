@@ -62,10 +62,10 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
             {
                 var list = new List<string>();
 
-                foreach (Item item in ItensList)
+                foreach (var item in ItensList)
                 {
                     if (item != null)
-                        list.Add(item.Nome);
+                        list.Add($"{item.Id}: {item.Nome}");
                 }
 
                 return string.Join(", ", list);
