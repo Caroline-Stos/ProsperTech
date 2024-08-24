@@ -12,7 +12,7 @@ namespace GeladeiraAPI.Controllers
     [ApiController]
     public class GeladeiraController : ControllerBase
     {
-        protected Geladeira_P2 MinhaGeladeira { get; set; }
+        private Geladeira_P2 MinhaGeladeira { get; set; }
 
         public GeladeiraController()
         {
@@ -30,24 +30,10 @@ namespace GeladeiraAPI.Controllers
 
         }
 
-        [HttpPost] // Rever metodo
+        [HttpPost] // OK
         public string Post(string andar, int container, int posicao, Item item)
         {
-            try
-            {
-                if (andar == "CarneAndar")
-                    return MinhaGeladeira.CarneAndar.ContainerList[container].AddItem(posicao, item);
-                if (andar == "LaticAndar")
-                    return MinhaGeladeira.LaticAndar.ContainerList[container].AddItem(posicao, item);
-                if (andar == "FruitAndar")
-                    return MinhaGeladeira.FruitAndar.ContainerList[container].AddItem(posicao, item);
-                else { return "Andar invalido"; }
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return ($"Error: {ex.Message}");
-            }
-
+            return MinhaGeladeira.AddItem(andar, container, posicao, item);
         }
 
         [HttpGet] // OK 
@@ -56,11 +42,43 @@ namespace GeladeiraAPI.Controllers
             return MinhaGeladeira.ListarItens();
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}")] // Rever
+        public ActionResult<Item> Get(int id)
         {
-            
+            foreach (var andar in MinhaGeladeira.DictAndares.Values)
+            {
+                foreach (var container in andar.ContainerList)
+                {
+
+                    var item = container.ItensList.FirstOrDefault(item => item.Id == id);
+
+                    if (item != null)
+                    {
+                        return Ok(item); // Retorna o item encontrado
+                    }
+                }
+            }
+
+            return NotFound();
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult<string> Delete(int id)
+        {
+            foreach (var andar in MinhaGeladeira.DictAndares.Values)
+            {
+                foreach (var container in andar.ContainerList)
+                {
+                    var item = container.ItensList.FirstOrDefault(item => item.Id == id);
+
+                    if (item != null)
+                    {
+                        return container.RemoverItem(item); // Retorna o item encontrado
+                    }
+                }
+            }
+
+            return NotFound();
+        }   
     }
 }
