@@ -2,7 +2,7 @@
 
 namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
 {
-    internal class Geladeira_P2
+    public class Geladeira_P2
     {
         // propriedades
         public Andar CarneAndar { get; set; } = new Andar(); // inicializa já com os andares declarados e instanciados
@@ -10,7 +10,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
         public Andar FruitAndar { get; set; } = new Andar();
 
         //metodos
-        public void VerGeladeira() // metodo para ver todos os itens da geladeira
+        public List<string> VerGeladeira() // metodo para ver todos os itens da geladeira
         {
             var _todosItens = new List<string>();
 
@@ -18,7 +18,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
             AdicionarItensDeAndar(LaticAndar, _todosItens);
             AdicionarItensDeAndar(FruitAndar, _todosItens);
 
-            //Console.WriteLine(string.Join(", ", _todosItens)); 
+            return _todosItens;
 
         }
 
@@ -29,7 +29,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
                 var itensDoContainer = container.ListarItens(); // retorna uma lista dos itens
                 if (itensDoContainer != null && itensDoContainer.Any())
                 {
-                    listaDeItens.AddRange(itensDoContainer);
+                    listaDeItens.Add(itensDoContainer);
                 }
             }
         }

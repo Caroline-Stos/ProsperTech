@@ -1,76 +1,93 @@
 ﻿using System;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
 {
-    internal class Container
+    public class Container
     {
         //propriedades
-        public List<string> ItensList { get; set; } = new List<string>(new string[4]); //container com 4 posições
+        public List<string> ItensList { get; set; } = new List<string>(new string[4]);
+        public const int LimiteMax = 4; //container com 4 posições
 
         //metodos
-        public void AddItem(int indice, string item)
+        public string AddItem(int indice, string item)
         {
+            // Verifica se o índice está dentro dos limites da lista
+            if (indice < 0 || indice >= ItensList.Count)
+                return "Posição fora dos limites do container.";
+
             if (string.IsNullOrEmpty(ItensList[indice]))
             {
                 if (ItensList.Contains(item))
                 {
-                    Console.WriteLine($"{item} já existe no container.");
+                    return $"{item} já existe no container.";
+                }
+                else if (ItensList.Count > LimiteMax)
+                {
+                    return $"Container cheio. Adicione {item} no container 2";
                 }
                 else
                 {
                     ItensList[indice] = item;
-                    Console.WriteLine($"{item} adicionado com sucesso.");
+                    return $"{item} adicionado com sucesso.";
                 }
             }
-            else { Console.WriteLine("Já existe um produto nesta posição."); }
+            else { return "Já existe um produto nesta posição."; }
         }
-        public void RemoverItem(string item) 
+        public string RemoverItem(string item) 
         {
             if (!ItensList.Contains(item)) {
-                Console.WriteLine("Este item não contém no container.");
+                return "Este item não contém no container.";
             }
             else
             {
                 ItensList.Remove(item);
-                Console.WriteLine($"{item} removido com sucesso.");
+                return $"{item} removido com sucesso.";
             }
         }
-        public void LimparContainer() // metodo adicional de esvaziar todo o container
+        public string LimparContainer() // metodo adicional de esvaziar todo o container
         {
             if (ItensList.Count > 0)
             {
                 ItensList.Clear();
-                Console.WriteLine("O container foi esvaziado.");
+                return "O container foi esvaziado.";
             }
             else
             {
-                Console.WriteLine("O container está vazio.");
+                return "O container está vazio.";
             }
         }
-        public List<string> ListarItens() // metodo adicional de listar todos os itens
+        public string ListarItens() // Método adicional de listar todos os itens
         {
-            ItensList = ItensList.Where(indice => !string.IsNullOrEmpty(indice)).ToList();
-            foreach (string item in ItensList)
+            if (ItensList != null && ItensList.Any())
             {
-                Console.WriteLine(item + ", ");
+                // Filtra os itens que não são nulos ou vazios
+                var itensFiltrados = ItensList.Where(indice => !string.IsNullOrEmpty(indice)).ToList();
+
+                // Concatena os itens em uma única string, separados por vírgula
+                return string.Join(", ", itensFiltrados);
             }
-            return ItensList;
+            else
+            {
+                return string.Empty; // Retorna uma string vazia se não houver itens
+            }
         }
-        public void StatusContainer() // metodo adicional de apresentar o status do container (vazio, posições vazias ou cheio)
+
+        public string StatusContainer() // metodo adicional de apresentar o status do container (vazio, posições vazias ou cheio)
         {
             var itensPreenchidos = ItensList.Count(indice => !string.IsNullOrEmpty(indice));
-            if (itensPreenchidos == 4)
+            if (itensPreenchidos == LimiteMax)
             {
-                Console.WriteLine("O container está totalmente cheio.");
+                return "O container está totalmente cheio.";
             }
             else if (itensPreenchidos == 0)
             {
-                Console.WriteLine("O container está totalmente vazio.");
+                return "O container está totalmente vazio.";
             }
             else
             {
                 var posicoesVazias = 4 - itensPreenchidos;
-                Console.WriteLine($"O container tem {posicoesVazias} lugar(es) vazio(s).");
+                return $"O container tem {posicoesVazias} lugar(es) vazio(s).";
             }
         }
     }

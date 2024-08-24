@@ -2,7 +2,7 @@
 
 namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
 {
-    internal class Andar
+    public class Andar
     {
         // propriedades
         public List<Container> ContainerList { get; set; } = new List<Container>();
