@@ -1,22 +1,21 @@
-﻿using System;
-using static iTextSharp.text.pdf.AcroFields;
+﻿using System.Linq;
 
 namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
 {
     public class Container
     {
         //propriedades
-        public List<string> ItensList { get; set; } = new List<string>(new string[4]);
+        public List<Item> ItensList { get; set; } = new List<Item>(new Item[4]);
         public const int LimiteMax = 4; //container com 4 posições
 
         //metodos
-        public string AddItem(int indice, string item)
+        public string AddItem(int indice, Item item)
         {
             // Verifica se o índice está dentro dos limites da lista
             if (indice < 0 || indice >= ItensList.Count)
                 return "Posição fora dos limites do container.";
 
-            if (string.IsNullOrEmpty(ItensList[indice]))
+            if (ItensList[indice] == null)
             {
                 if (ItensList.Contains(item))
                 {
@@ -29,12 +28,12 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
                 else
                 {
                     ItensList[indice] = item;
-                    return $"{item} adicionado com sucesso.";
+                    return $"{item.Nome} adicionado com sucesso.";
                 }
             }
             else { return "Já existe um produto nesta posição."; }
         }
-        public string RemoverItem(string item) 
+        public string RemoverItem(Item item) 
         {
             if (!ItensList.Contains(item)) {
                 return "Este item não contém no container.";
@@ -42,7 +41,7 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
             else
             {
                 ItensList.Remove(item);
-                return $"{item} removido com sucesso.";
+                return $"{item.Nome} removido com sucesso.";
             }
         }
         public string LimparContainer() // metodo adicional de esvaziar todo o container
@@ -61,21 +60,26 @@ namespace MeuPrimeiroProjeto.Geladeira_Ex_P2
         {
             if (ItensList != null && ItensList.Any())
             {
-                // Filtra os itens que não são nulos ou vazios
-                var itensFiltrados = ItensList.Where(indice => !string.IsNullOrEmpty(indice)).ToList();
+                var list = new List<string>();
 
-                // Concatena os itens em uma única string, separados por vírgula
-                return string.Join(", ", itensFiltrados);
+                foreach (Item item in ItensList)
+                {
+                    if (item != null)
+                        list.Add(item.Nome);
+                }
+
+                return string.Join(", ", list);
             }
             else
             {
-                return string.Empty; // Retorna uma string vazia se não houver itens
+                return "Geladeira vazia"; // Retorna uma lista vazia se não houver itens
             }
         }
 
         public string StatusContainer() // metodo adicional de apresentar o status do container (vazio, posições vazias ou cheio)
         {
-            var itensPreenchidos = ItensList.Count(indice => !string.IsNullOrEmpty(indice));
+            var itensPreenchidos = ItensList.Count(item => item != null);
+
             if (itensPreenchidos == LimiteMax)
             {
                 return "O container está totalmente cheio.";

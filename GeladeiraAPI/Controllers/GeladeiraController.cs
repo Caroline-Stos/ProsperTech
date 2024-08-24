@@ -1,8 +1,10 @@
-﻿using MeuPrimeiroProjeto.Geladeira_Ex_P2;
+﻿using iTextSharp.xmp.options;
+using MeuPrimeiroProjeto.Geladeira_Ex_P2;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using System.Reflection;
 
 namespace GeladeiraAPI.Controllers
 {
@@ -15,14 +17,21 @@ namespace GeladeiraAPI.Controllers
         public GeladeiraController()
         {
             MinhaGeladeira = new Geladeira_P2();
+
+            // criando novos itens
+            Item novoItem = new(0, "Maça"); // ID + Nome
+            Item novoItem2 = new(1, "Bacon");
+            Item novoItem3 = new(2, "Leite");
+
             // adicionando itens na geladeira para testar metodo GET
-            MinhaGeladeira.CarneAndar.ContainerList[0].AddItem(0, "Bacon");
-            MinhaGeladeira.LaticAndar.ContainerList[0].AddItem(0, "Leite");
-            MinhaGeladeira.FruitAndar.ContainerList[0].AddItem(0, "Laranja");
+            MinhaGeladeira.AddItem("FruitAndar", 0, 0, novoItem);
+            MinhaGeladeira.AddItem("CarneAndar", 0, 0, novoItem2);
+            MinhaGeladeira.AddItem("LaticAndar", 0, 0, novoItem3);
+
         }
 
-        [HttpPost] // OK
-        public string Post(string andar, int container, int posicao, string item)
+        [HttpPost] // Rever metodo
+        public string Post(string andar, int container, int posicao, Item item)
         {
             try
             {
@@ -40,10 +49,17 @@ namespace GeladeiraAPI.Controllers
             }
 
         }
+
         [HttpGet] // OK 
-        public List<string> Get()
+        public string Get()
         {
-            return MinhaGeladeira.VerGeladeira();
+            return MinhaGeladeira.ListarItens();
+        }
+
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            
         }
 
     }
