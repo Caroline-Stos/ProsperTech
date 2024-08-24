@@ -17,8 +17,8 @@ namespace GeladeiraAPI.Controllers
             MinhaGeladeira = new Geladeira_P2();
             // adicionando itens na geladeira para testar metodo GET
             MinhaGeladeira.CarneAndar.ContainerList[0].AddItem(0, "Bacon");
-            MinhaGeladeira.LaticAndar.ContainerList[0].AddItem(0, "Laranja");
-            MinhaGeladeira.FruitAndar.ContainerList[0].AddItem(0, "Leite");
+            MinhaGeladeira.LaticAndar.ContainerList[0].AddItem(0, "Leite");
+            MinhaGeladeira.FruitAndar.ContainerList[0].AddItem(0, "Laranja");
         }
 
         [HttpPost] // OK
