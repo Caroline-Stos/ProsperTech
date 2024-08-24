@@ -1,10 +1,5 @@
-﻿using iTextSharp.xmp.options;
-using MeuPrimeiroProjeto.Geladeira_Ex_P2;
-using Microsoft.AspNetCore.Http;
+﻿using MeuPrimeiroProjeto.Geladeira_Ex_P2;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Reflection;
 
 namespace GeladeiraAPI.Controllers
 {
@@ -42,19 +37,20 @@ namespace GeladeiraAPI.Controllers
             return MinhaGeladeira.ListarItens();
         }
 
-        [HttpGet("{id}")] // Rever
+        [HttpGet("{id}")] // Ok
         public ActionResult<Item> Get(int id)
         {
             foreach (var andar in MinhaGeladeira.DictAndares.Values)
             {
                 foreach (var container in andar.ContainerList)
                 {
-
-                    var item = container.ItensList.FirstOrDefault(item => item.Id == id);
-
-                    if (item != null)
+                    foreach (var item in container.ItensList)
                     {
-                        return Ok(item); // Retorna o item encontrado
+                        if (item != null)
+                        {
+                            if (item.Id == id)
+                                return Ok(item); // retorna o item encontrado
+                        }
                     }
                 }
             }
@@ -62,18 +58,20 @@ namespace GeladeiraAPI.Controllers
             return NotFound();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] // Ok
         public ActionResult<string> Delete(int id)
         {
             foreach (var andar in MinhaGeladeira.DictAndares.Values)
             {
                 foreach (var container in andar.ContainerList)
                 {
-                    var item = container.ItensList.FirstOrDefault(item => item.Id == id);
-
-                    if (item != null)
+                    foreach (var item in container.ItensList)
                     {
-                        return container.RemoverItem(item); // Retorna o item encontrado
+                        if (item != null)
+                        {
+                            if (item.Id == id)
+                                return container.RemoverItem(item); // remove o item encontrado
+                        }
                     }
                 }
             }
