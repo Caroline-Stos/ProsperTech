@@ -55,7 +55,7 @@ namespace GeladeiraAPI.Controllers
             return NotFound();
         }
 
-        [HttpPost] // OK
+        [HttpPost] // Os nomes dos andares válidos são: CarneAndar, LaticAndar e FruitAndar
         public string Post(string andar, int container, int posicao, Item novoItem)
         {
             return MinhaGeladeira.AddItem(andar, container, posicao, novoItem);
