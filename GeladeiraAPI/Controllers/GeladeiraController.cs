@@ -1,4 +1,4 @@
-﻿using Model.Geladeira_Ex_P2;
+﻿using Model.Geladeira;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeladeiraAPI.Controllers
