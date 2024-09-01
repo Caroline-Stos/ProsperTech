@@ -5,6 +5,7 @@ using RepositorioEntity.Models;
 using Model.Geladeira;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.EntityFrameworkCore;
 
 namespace Servicos
 {
@@ -21,10 +22,11 @@ namespace Servicos
 
         public string AddNovoItem(int container, int posicao, ItemModel itemModel)
         {
-            try
+            using (var transaction = _contexto.Database.BeginTransaction())
             {
-                using (var transaction = _contexto.Database.BeginTransaction())
+                try
                 {
+
                     if (itemModel == null)
                     {
                         return "Item não pode ser nulo!";
@@ -40,11 +42,11 @@ namespace Servicos
 
                     var containerExistente = _contexto.Containers.SingleOrDefault(cont => cont.ContainerId == container);
                     if (containerExistente == null)
-                        return "Container não encontrado.";
+                        return "Container não encontrado!";
 
                     var posicaoExistente = _contexto.Posicaos.SingleOrDefault(posic => posic.PosicaoId == posicao);
                     if (posicaoExistente == null)
-                        return "Posicao não encontrada.";
+                        return "Posicao não encontrada!";
 
                     var novoItem = new Item
                     {
@@ -63,36 +65,22 @@ namespace Servicos
                     transaction.Commit();
                     return "Item adicionado com sucesso!";
                 }
-            }
-            catch (Exception ex)
-            {
-                return $"Erro: {ex.Message}";
+
+                catch (Exception ex)
+                {
+                    return $"Erro: {ex.Message}";
+                }
             }
         }
 
-        public List<ItemModel> GetListaDeItem()
+        public List<Item> GetListarItens()
         {
-            var listaItens_Entity = new List<Item>();
+            var listaItens = new List<Item>();
 
             try
             {
-                listaItens_Entity = _contexto.Items.ToList();
-
-                if (listaItens_Entity != null)
-                {
-                    var listaItens_Model = new List<ItemModel>();
-
-                    foreach (var item in listaItens_Entity)
-                    {
-                        listaItens_Model.Add(
-                            new ItemModel(id: item.ItemId, nome: item.NomeItem ?? string.Empty));
-                    }
-
-                    return listaItens_Model;
-                }
-
-                else
-                    return null;
+                listaItens = _contexto.Items.ToList();
+                return listaItens;
             }
 
             catch (Exception)
@@ -124,6 +112,36 @@ namespace Servicos
             {
                 return null;
             }
+        }
+
+        public string DeleteItem(int itemId)
+        {           
+            using (var transaction = _contexto.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (itemId == null)
+                        return "Id não pode ser nulo!";
+                    
+                    var item = _contexto.Items.SingleOrDefault(it => it.ItemId == itemId);
+
+                    if (item == null)
+                        return "Item não encontrado!";
+
+                    _contexto.Items.Remove(item);
+
+                    _contexto.SaveChanges();
+
+                    transaction.Commit();
+                    return "Item excluído com sucesso!";
+
+                }
+                catch
+                {
+                    return "Erro ao excluir item.";
+                }
+            }
+            
         }
     }
 }
