@@ -3,30 +3,30 @@ using System.Reflection;
 
 namespace Model.Geladeira
 {
-    public class Geladeira_P2
+    public class GeladeiraModel
     {
         // propriedades
 
         // Dicionario para poder iterar sobre os andares da geladeira
-        public Dictionary<string, Andar> DictAndares = new Dictionary<string, Andar>();
-        public Andar CarneAndar { get; set; }
-        public Andar LaticAndar { get; set; }
-        public Andar FruitAndar { get; set; }
+        public Dictionary<string, AndarModel> DictAndares = new Dictionary<string, AndarModel>();
+        public AndarModel CarneAndar { get; set; }
+        public AndarModel LaticAndar { get; set; }
+        public AndarModel FruitAndar { get; set; }
 
-        public Geladeira_P2()
+        public GeladeiraModel()
         {
-            CarneAndar = new Andar(); // inicializa já com os andares declarados e instanciados
-            LaticAndar = new Andar();
-            FruitAndar = new Andar();
+            CarneAndar = new AndarModel(); // inicializa já com os andares declarados e instanciados
+            LaticAndar = new AndarModel();
+            FruitAndar = new AndarModel();
 
-            DictAndares.Add("CarneAndar", CarneAndar); // Adiciona cada andar no dicionario com uma chave/valor
-            DictAndares.Add("LaticAndar", LaticAndar);
-            DictAndares.Add("FruitAndar", FruitAndar);
+            DictAndares.Add("1", CarneAndar); // Adiciona cada andar no dicionario com uma chave/valor
+            DictAndares.Add("2", LaticAndar);
+            DictAndares.Add("3", FruitAndar);
 
         }
 
         //metodos - Chama o metodo do objeto container
-        public string AddItem(string andar, int container, int posicao, Item item)
+        public string AddItem(string andar, int container, int posicao, ItemModel item)
         {
             if (DictAndares.ContainsKey(andar)) // Verifica se o andar existe no dicionario de andares
             {
@@ -43,7 +43,7 @@ namespace Model.Geladeira
             }
         }
 
-        public string RemoverItem(string andar, int container, Item item)
+        public string RemoverItem(string andar, int container, ItemModel item)
         {
             if (DictAndares.ContainsKey(andar)) // Verifica se o andar existe no dicionario de andares
             {
@@ -107,7 +107,7 @@ namespace Model.Geladeira
         }
 
         // metodo para listar os itens por andar
-        private void AdicionarItensDeAndar(Andar andar, List<string> listaDeItens)
+        private void AdicionarItensDeAndar(AndarModel andar, List<string> listaDeItens)
         {
             foreach (var container in andar.ContainerList) //
             {

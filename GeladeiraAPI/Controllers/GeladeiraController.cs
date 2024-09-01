@@ -1,5 +1,9 @@
 ﻿using Model.Geladeira;
 using Microsoft.AspNetCore.Mvc;
+using RepositorioEntity.Context;
+using RepositorioEntity.Models;
+using Servicos;
+using Microsoft.Extensions.Configuration;
 
 namespace GeladeiraAPI.Controllers
 {
@@ -10,100 +14,99 @@ namespace GeladeiraAPI.Controllers
     [ApiController]
     public class GeladeiraController : ControllerBase
     {
-        private Geladeira_P2 MinhaGeladeira { get; set; }
+        GeladeiraDbContext _contexto;
+        IConfiguration _configuration;
+        GeladeiraService _service;
 
-        public GeladeiraController()
+        public GeladeiraController(IConfiguration configuration, GeladeiraDbContext contexto)
         {
-            MinhaGeladeira = new Geladeira_P2();
-
-            // criando novos itens
-            Item novoItem = new(1, "Maça"); 
-            Item novoItem2 = new(2, "Bacon");
-            Item novoItem3 = new(3, "Leite");
-
-            // adicionando itens na geladeira para testar metodo GET
-            MinhaGeladeira.AddItem("FruitAndar", 0, 0, novoItem);
-            MinhaGeladeira.AddItem("CarneAndar", 0, 0, novoItem2);
-            MinhaGeladeira.AddItem("LaticAndar", 0, 0, novoItem3);
-
+            _configuration = configuration;
+            _contexto = contexto;
+            _service = new GeladeiraService(_contexto, _configuration);
         }
 
-        [HttpGet] // OK 
-        public string Get()
+        [HttpPost("AddItem")] // OK 
+        public ActionResult<string> Post(int container, int posicao, [FromBody] ItemModel item)
         {
-            return MinhaGeladeira.ListarItens();
+            try
+            {
+                return _service.AddNovoItem(container, posicao, item);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpGet("{id}")] // Ok
+        [HttpGet("ListarItens")] // Ok
+        public ActionResult<List<ItemModel>> Get()
+        {
+            try
+            {
+                return _service.GetListaDeItem();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetItemById")] // Ok
         public ActionResult<Item> Get(int id)
         {
-            foreach (var andar in MinhaGeladeira.DictAndares.Values)
+            try
             {
-                foreach (var container in andar.ContainerList)
-                {
-                    foreach (var item in container.ItensList)
-                    {
-                        if (item != null)
-                        {
-                            if (item.Id == id)
-                                return item; // retorna o item encontrado
-                        }
-                    }
-                }
+                return _service.GetItemById(id);
             }
-
-            return NotFound();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPost] // Os nomes dos andares válidos são: CarneAndar, LaticAndar e FruitAndar
-        public string Post(string andar, int container, int posicao, Item novoItem)
-        {
-            return MinhaGeladeira.AddItem(andar, container, posicao, novoItem);
-        }
+            //[HttpPut("{id}")] // Ok
+            //public ActionResult<ItemModel> Put(int id, [FromBody] ItemModel novoItem)
+            //{
+            //    foreach (var andar in MinhaGeladeira.DictAndares.Values)
+            //    {
+            //        foreach (var container in andar.ContainerList)
+            //        {
+            //            foreach (var item in container.ItensList)
+            //            {
+            //                if (item != null)
+            //                {
+            //                    if (item.Id == id)
+            //                        item.Id = novoItem.Id;
+            //                        item.Nome = novoItem.Nome;
+            //                        return item; // Retorna o item atualizado
+            //                }
+            //            }
+            //        }
+            //    }
 
-        [HttpPut("{id}")] // Ok
-        public ActionResult<Item> Put(int id, [FromBody] Item novoItem)
-        {
-            foreach (var andar in MinhaGeladeira.DictAndares.Values)
-            {
-                foreach (var container in andar.ContainerList)
-                {
-                    foreach (var item in container.ItensList)
-                    {
-                        if (item != null)
-                        {
-                            if (item.Id == id)
-                                item.Id = novoItem.Id;
-                                item.Nome = novoItem.Nome;
-                                return item; // Retorna o item atualizado
-                        }
-                    }
-                }
-            }
+            //    return NotFound();
 
-            return NotFound();
+            //}
 
-        }
+            //[HttpDelete("{id}")] // Ok
+            //public ActionResult<string> Delete(int id)
+            //{
+            //    foreach (var andar in MinhaGeladeira.DictAndares.Values)
+            //    {
+            //        foreach (var container in andar.ContainerList)
+            //        {
+            //            foreach (var item in container.ItensList)
+            //            {
+            //                if (item != null)
+            //                {
+            //                    if (item.Id == id)
+            //                        return container.RemoverItem(item); // Remove o item encontrado
+            //                }
+            //            }
+            //        }
+            //    }
 
-        [HttpDelete("{id}")] // Ok
-        public ActionResult<string> Delete(int id)
-        {
-            foreach (var andar in MinhaGeladeira.DictAndares.Values)
-            {
-                foreach (var container in andar.ContainerList)
-                {
-                    foreach (var item in container.ItensList)
-                    {
-                        if (item != null)
-                        {
-                            if (item.Id == id)
-                                return container.RemoverItem(item); // Remove o item encontrado
-                        }
-                    }
-                }
-            }
-
-            return NotFound();
+            //    return NotFound();
+            //}
         }
     }
-}

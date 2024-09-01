@@ -2,14 +2,14 @@
 
 namespace Model.Geladeira
 {
-    public class Container
+    public class ContainerModel
     {
         //propriedades
-        public List<Item> ItensList { get; set; } = new List<Item>(new Item[4]);
+        public List<ItemModel> ItensList { get; set; } = new List<ItemModel>(new ItemModel[4]);
         public const int LimiteMax = 4; //container com 4 posições
 
         //metodos
-        public string AddItem(int indice, Item item)
+        public string AddItem(int indice, ItemModel item)
         {
             // Verifica se o índice está dentro dos limites da lista
             if (indice < 0 || indice >= ItensList.Count)
@@ -33,7 +33,7 @@ namespace Model.Geladeira
             }
             else { return "Já existe um produto nesta posição."; }
         }
-        public string RemoverItem(Item item)
+        public string RemoverItem(ItemModel item)
         {
             if (!ItensList.Contains(item)) // ... se o item nao existe no container
             {

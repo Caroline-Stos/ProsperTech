@@ -2,17 +2,16 @@
 
 namespace Model.Geladeira
 {
-    public class Andar
+    public class AndarModel
     {
         // propriedades
-        public List<Container> ContainerList { get; set; } = new List<Container>();
+        public List<ContainerModel> ContainerList { get; set; } = new List<ContainerModel>();
 
-        public Andar()
+        public AndarModel()
         {
             // Inicializa com dois containers por padrão p/ andar
-            ContainerList.Add(new Container());
-            ContainerList.Add(new Container());
+            ContainerList.Add(new ContainerModel());
+            ContainerList.Add(new ContainerModel());
         }
-
     }
 }

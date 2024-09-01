@@ -9,7 +9,11 @@ public partial class Item
 
     public int? ContainerId { get; set; }
 
-    public string Nome { get; set; } = null!;
+    public int? PosicaoId { get; set; }
+
+    public string NomeItem { get; set; } = null!;
 
     public virtual Container? Container { get; set; }
+
+    public virtual Posicao? Posicao { get; set; }
 }

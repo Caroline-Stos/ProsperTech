@@ -9,9 +9,11 @@ public partial class Container
 
     public int? AndarId { get; set; }
 
-    public string Nome { get; set; } = null!;
+    public string NomeContainer { get; set; } = null!;
 
     public virtual Andar? Andar { get; set; }
 
     public virtual ICollection<Item> Items { get; set; } = new List<Item>();
+
+    public virtual ICollection<Posicao> Posicaos { get; set; } = new List<Posicao>();
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using RepositorioEntity.Models;
 
 namespace RepositorioEntity.Context;
@@ -22,15 +24,13 @@ public partial class GeladeiraDbContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=localhost;Database=GeladeiraDB;Uid=adm_caroline;Pwd=12345;TrustServerCertificate=True;");
+    public virtual DbSet<Posicao> Posicaos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Andar>(entity =>
         {
-            entity.HasKey(e => e.AndarId).HasName("PK__Andar__2772D655AFB46013");
+            entity.HasKey(e => e.AndarId).HasName("PK__Andar__2772D655B6E79FAE");
 
             entity.ToTable("Andar");
 
@@ -43,11 +43,11 @@ public partial class GeladeiraDbContext : DbContext
 
         modelBuilder.Entity<Container>(entity =>
         {
-            entity.HasKey(e => e.ContainerId).HasName("PK__Containe__037960BB84C12246");
+            entity.HasKey(e => e.ContainerId).HasName("PK__Containe__037960BB977D2463");
 
             entity.ToTable("Container");
 
-            entity.Property(e => e.Nome).HasMaxLength(100);
+            entity.Property(e => e.NomeContainer).HasMaxLength(100);
 
             entity.HasOne(d => d.Andar).WithMany(p => p.Containers)
                 .HasForeignKey(d => d.AndarId)
@@ -56,7 +56,7 @@ public partial class GeladeiraDbContext : DbContext
 
         modelBuilder.Entity<Geladeira>(entity =>
         {
-            entity.HasKey(e => e.GeladeiraId).HasName("PK__Geladeir__B000357037E509BC");
+            entity.HasKey(e => e.GeladeiraId).HasName("PK__Geladeir__B00035704A4940B2");
 
             entity.ToTable("Geladeira");
 
@@ -66,15 +66,32 @@ public partial class GeladeiraDbContext : DbContext
 
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.HasKey(e => e.ItemId).HasName("PK__Item__727E838B15A38A46");
+            entity.HasKey(e => e.ItemId).HasName("PK__Item__727E838B9E35F909");
 
             entity.ToTable("Item");
 
-            entity.Property(e => e.Nome).HasMaxLength(100);
+            entity.Property(e => e.NomeItem).HasMaxLength(100);
 
             entity.HasOne(d => d.Container).WithMany(p => p.Items)
                 .HasForeignKey(d => d.ContainerId)
                 .HasConstraintName("FK_Item_Container");
+
+            entity.HasOne(d => d.Posicao).WithMany(p => p.Items)
+                .HasForeignKey(d => d.PosicaoId)
+                .HasConstraintName("FK_Item_Posicao");
+        });
+
+        modelBuilder.Entity<Posicao>(entity =>
+        {
+            entity.HasKey(e => e.PosicaoId).HasName("PK__Posicao__4FD57EAF082323DD");
+
+            entity.ToTable("Posicao");
+
+            entity.Property(e => e.NomePosicao).HasMaxLength(30);
+
+            entity.HasOne(d => d.Container).WithMany(p => p.Posicaos)
+                .HasForeignKey(d => d.ContainerId)
+                .HasConstraintName("FK_Posicao_Container");
         });
 
         OnModelCreatingPartial(modelBuilder);

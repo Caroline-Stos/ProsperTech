@@ -5,11 +5,11 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeladeiraAPI", "GeladeiraAPI\GeladeiraAPI.csproj", "{9DAC45DC-B710-4D53-BB0A-EFBBB303B776}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositorioEntity", "RepositorioEntity\RepositorioEntity.csproj", "{AFEF0E23-966A-4B78-9C98-EB671FE19E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositorioEntity", "RepositorioEntity\RepositorioEntity.csproj", "{AFEF0E23-966A-4B78-9C98-EB671FE19E5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{00A67F88-F73B-48D1-AC47-2473FD809CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{00A67F88-F73B-48D1-AC47-2473FD809CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{C82CD794-92E5-4F3A-82B1-A4D18BF17568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Servicos", "Services\Servicos.csproj", "{C82CD794-92E5-4F3A-82B1-A4D18BF17568}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
