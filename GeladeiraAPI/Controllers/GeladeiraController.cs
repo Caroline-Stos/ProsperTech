@@ -39,11 +39,11 @@ namespace GeladeiraAPI.Controllers
         }
 
         [HttpGet("ListarItens")] // Ok
-        public ActionResult<List<ItemModel>> Get()
+        public ActionResult<List<Item>> Get()
         {
             try
             {
-                return _service.GetListaDeItem();
+                return _service.GetListarItens();
             }
             catch (Exception ex)
             {
@@ -56,7 +56,24 @@ namespace GeladeiraAPI.Controllers
         {
             try
             {
-                return _service.GetItemById(id);
+                var item = _service.GetItemById(id);
+                if (item != null)
+                    return item;
+                return NotFound();               
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpDelete("DeletarItem")] // Ok
+        public ActionResult<string> Delete(int id)
+        {
+            try
+            {
+                return _service.DeleteItem(id);
             }
             catch (Exception ex)
             {
@@ -64,49 +81,7 @@ namespace GeladeiraAPI.Controllers
             }
         }
 
-            //[HttpPut("{id}")] // Ok
-            //public ActionResult<ItemModel> Put(int id, [FromBody] ItemModel novoItem)
-            //{
-            //    foreach (var andar in MinhaGeladeira.DictAndares.Values)
-            //    {
-            //        foreach (var container in andar.ContainerList)
-            //        {
-            //            foreach (var item in container.ItensList)
-            //            {
-            //                if (item != null)
-            //                {
-            //                    if (item.Id == id)
-            //                        item.Id = novoItem.Id;
-            //                        item.Nome = novoItem.Nome;
-            //                        return item; // Retorna o item atualizado
-            //                }
-            //            }
-            //        }
-            //    }
-
-            //    return NotFound();
-
-            //}
-
-            //[HttpDelete("{id}")] // Ok
-            //public ActionResult<string> Delete(int id)
-            //{
-            //    foreach (var andar in MinhaGeladeira.DictAndares.Values)
-            //    {
-            //        foreach (var container in andar.ContainerList)
-            //        {
-            //            foreach (var item in container.ItensList)
-            //            {
-            //                if (item != null)
-            //                {
-            //                    if (item.Id == id)
-            //                        return container.RemoverItem(item); // Remove o item encontrado
-            //                }
-            //            }
-            //        }
-            //    }
-
-            //    return NotFound();
-            //}
+        //[HttpPut("{id}")] 
+            
         }
     }
