@@ -16,51 +16,54 @@ namespace Servicos
             _configuration = configuration;
         }
 
-        public string AddNovoItem(int container, int posicao, ItemModel itemModel)
+        public string AddNovoItem(int containerId, int posicaoId, ItemModel itemModel)
         {
+            if (itemModel == null)
+            {
+                return "Item não pode ser nulo!";
+            }
+
             using (var transaction = _contexto.Database.BeginTransaction())
             {
                 try
                 {
-
-                    if (itemModel == null)
-                    {
-                        return "Item não pode ser nulo!";
-                    }
-
-                    var itemExistente = _contexto.Items
-                        .FirstOrDefault(item => item.NomeItem == itemModel.Nome);
-
+                    // Verifica se o item já existe na geladeira
+                    var itemExistente = _contexto.Items.FirstOrDefault(item => item.NomeItem == itemModel.Nome);
                     if (itemExistente != null)
                     {
                         return "Item já existe na geladeira!";
                     }
 
-                    var containerExistente = _contexto.Containers.SingleOrDefault(cont => cont.ContainerId == container);
+                    // Verifica se o container existe
+                    var containerExistente = _contexto.Containers.SingleOrDefault(cont => cont.ContainerId == containerId);
                     if (containerExistente == null)
+                    {
                         return "Container não encontrado!";
+                    }
 
-                    var posicaoExistente = _contexto.Posicaos.SingleOrDefault(posic => posic.PosicaoId == posicao);
+                    // Verifica se a posição existe
+                    var posicaoExistente = _contexto.Posicaos.SingleOrDefault(posic => posic.PosicaoId == posicaoId);
                     if (posicaoExistente == null)
-                        return "Posicao não encontrada!";
+                    {
+                        return "Posição não encontrada!";
+                    }
 
+                    // Cria um novo item
                     var novoItem = new Item
                     {
                         NomeItem = itemModel.Nome,
-                        ContainerId = container,
-                        PosicaoId = posicao
+                        ContainerId = containerId,
+                        PosicaoId = posicaoId
                     };
-                   
+
                     _contexto.Items.Add(novoItem);
-                 
                     _contexto.SaveChanges();
-                  
                     transaction.Commit();
+
                     return "Item adicionado com sucesso!";
                 }
-
                 catch (Exception ex)
-                {
+                {                  
                     return $"Erro: {ex.Message}";
                 }
             }
@@ -68,91 +71,85 @@ namespace Servicos
 
         public List<Item> GetListarItens()
         {
-            var listaItens = new List<Item>();
-
             try
-            {
-                listaItens = _contexto.Items.ToList();
-                return listaItens;
+            {               
+                return _contexto.Items.ToList();
             }
-
-            catch (Exception)
-            {
-                return null;
+            catch (Exception ex)
+            {              
+                return new List<Item>(); // Retorna uma lista vazia em caso de erro
             }
-
         }
 
         public Item GetItemById(int itemId)
         {
-            var itemEntity = new Item();
-
             try
-            {
-                if (itemId > 0)
+            {                
+               if (itemId <= 0)
                 {
-                    var item = _contexto.Items.Where(x => x.ItemId == itemId).ToList();
-                    itemEntity = item?.FirstOrDefault();
-                    if (itemEntity != null)
-                        return itemEntity;
-                    else
-                        return null;
-                }
-                else
                     return null;
+                }
+               
+                var item = _contexto.Items.FirstOrDefault(x => x.ItemId == itemId);
+
+                return item; // Retorna o item encontrado ou null se não houver
             }
-            catch (Exception)
-            {
+            catch (Exception ex)
+            {               
                 return null;
             }
         }
 
         public string DeletarItem(int itemId)
-        {
+        {           
+            if (itemId <= 0)
+            {
+                return "Id inválido!";
+            }
+
             using (var transaction = _contexto.Database.BeginTransaction())
             {
                 try
-                {
-                    if (itemId == null)
-                        return "Id não pode ser nulo!";
-
+                {                  
                     var item = _contexto.Items.SingleOrDefault(it => it.ItemId == itemId);
 
                     if (item == null)
+                    {
                         return "Item não encontrado!";
+                    }
 
+                    // Remove o item encontrado
                     _contexto.Items.Remove(item);
-
                     _contexto.SaveChanges();
-
                     transaction.Commit();
-                    return "Item excluído com sucesso!";
 
+                    return "Item excluído com sucesso!";
                 }
-                catch
-                {
-                    throw new Exception("Erro ao excluir item.");                   
+                catch (Exception ex)
+                {                   
+                    return $"Erro ao excluir item: {ex.Message}";
                 }
             }
-
         }
+
 
         public string AtualizarNomeItem(ItemModel item)
         {
+            if (item == null || item.Id <= 0)
+            {
+                return "Item inválido!";
+            }
+
             using (var transaction = _contexto.Database.BeginTransaction())
             {
                 try
-                {
-                    if (item == null)
-                        return "Item não pode ser nulo!";
-
-                    var itemExistente = _contexto.Items
-                    .FirstOrDefault(it => it.ItemId == item.Id);
+                {                  
+                    var itemExistente = _contexto.Items.FirstOrDefault(it => it.ItemId == item.Id);
 
                     if (itemExistente != null)
                     {
+                        // Atualiza o nome do item
                         itemExistente.NomeItem = item.Nome;
-                        //_contexto.Update(itemExistente);
                         _contexto.SaveChanges();
 
                         transaction.Commit();
@@ -160,15 +157,16 @@ namespace Servicos
                     }
                     else
                     {
-                        return "Item inválido!";
+                        return "Item não encontrado!";
                     }
-                }                
-                catch
-                {
-                    throw new Exception("Erro ao atualizar item.");
+                }
+                catch (Exception ex)
+                {                                       
+                    return $"Erro ao atualizar item: {ex.Message}";
                 }
             }
         }
+
 
         public string EsvaziarContainer(int containerId)
         {
@@ -176,39 +174,30 @@ namespace Servicos
             {
                 try
                 {
+                    // Verifica se o container existe
                     var containerExistente = _contexto.Containers.SingleOrDefault(cont => cont.ContainerId == containerId);
 
                     if (containerExistente == null)
                         return "Container não existe!";
 
-                    List<Item> ItensContainer = new List<Item>();
+                    // Busca todos os itens que pertencem ao container
+                    var itensContainer = _contexto.Items.Where(item => item.ContainerId == containerId).ToList();
 
-                    var itensList = _contexto.Items.ToList();
-
-                    foreach (var item in itensList)
-                    {
-                        if (item.ContainerId == containerId)
-                            ItensContainer.Add(item);
-                    }
-
-                    if (ItensContainer.Count == 0)
+                    if (itensContainer.Count == 0)
                     {
                         return "Não há itens neste container!";
                     }
 
-                    foreach (var item in ItensContainer)
-                    {
-                        _contexto.Remove(item);
-                        _contexto.SaveChanges();
-                    }
+                    // Remove todos os itens encontrados
+                    _contexto.Items.RemoveRange(itensContainer);
+                    _contexto.SaveChanges();
 
                     transaction.Commit();
                     return "Container esvaziado com sucesso!";
-
-                }             
-                catch
-                {
-                    throw new Exception("Erro ao tentar esvaziar container.");
+                }
+                catch (Exception ex)
+                {                                      
+                    return $"Erro ao tentar esvaziar container: {ex.Message}";
                 }
             }
         }
