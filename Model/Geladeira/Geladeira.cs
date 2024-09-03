@@ -6,8 +6,7 @@ namespace Model.Geladeira
     public class GeladeiraModel
     {
         // propriedades
-
-        // Dicionario para poder iterar sobre os andares da geladeira
+       
         public Dictionary<string, AndarModel> DictAndares = new Dictionary<string, AndarModel>();
         public AndarModel CarneAndar { get; set; }
         public AndarModel LaticAndar { get; set; }
