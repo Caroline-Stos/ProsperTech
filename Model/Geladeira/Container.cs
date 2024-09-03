@@ -1,5 +1,4 @@
-﻿using System.Linq;
-
+﻿
 namespace Model.Geladeira
 {
     public class ContainerModel

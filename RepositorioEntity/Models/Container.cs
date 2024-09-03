@@ -7,11 +7,11 @@ public partial class Container
 {
     public int ContainerId { get; set; }
 
-    public int? AndarId { get; set; }
+    public int AndarId { get; set; }
 
-    public string NomeContainer { get; set; } = null!;
+    public string? NomeContainer { get; set; }
 
-    public virtual Andar? Andar { get; set; }
+    public virtual Andar Andar { get; set; } = null!;
 
     public virtual ICollection<Item> Items { get; set; } = new List<Item>();
 

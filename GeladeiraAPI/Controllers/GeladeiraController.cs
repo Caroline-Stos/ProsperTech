@@ -4,6 +4,7 @@ using RepositorioEntity.Context;
 using RepositorioEntity.Models;
 using Servicos;
 using Microsoft.Extensions.Configuration;
+using System.ComponentModel;
 
 namespace GeladeiraAPI.Controllers
 {
@@ -26,11 +27,11 @@ namespace GeladeiraAPI.Controllers
         }
 
         [HttpPost("AddItem")] // OK 
-        public ActionResult<string> Post(int container, int posicao, [FromBody] ItemModel item)
+        public ActionResult<string> Post(int container, int posicao, ItemModel itemModel)
         {
             try
             {
-                return _service.AddNovoItem(container, posicao, item);
+                return _service.AddNovoItem(container, posicao, itemModel);
             }
             catch (Exception ex)
             {
@@ -59,7 +60,7 @@ namespace GeladeiraAPI.Controllers
                 var item = _service.GetItemById(id);
                 if (item != null)
                     return item;
-                return NotFound();               
+                return NotFound();
             }
             catch (Exception ex)
             {
@@ -73,7 +74,7 @@ namespace GeladeiraAPI.Controllers
         {
             try
             {
-                return _service.DeleteItem(id);
+                return _service.DeletarItem(id);
             }
             catch (Exception ex)
             {
@@ -81,7 +82,30 @@ namespace GeladeiraAPI.Controllers
             }
         }
 
-        //[HttpPut("{id}")] 
-            
+        [HttpPut("AtualizarNomeItem")] // Ok
+        public ActionResult<string> Put(ItemModel item)
+        {
+            try
+            {
+                return _service.AtualizarNomeItem(item);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("EsvaziarContainer")] // Ok
+        public ActionResult<string> DeleteContainer(int containerId)
+        {
+            try
+            {
+                return _service.EsvaziarContainer(containerId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
+}
