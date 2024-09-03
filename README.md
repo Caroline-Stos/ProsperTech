@@ -31,7 +31,9 @@
 
 - Execute os scripts de criação, inserção de dados e consulta;
 
-[Baixar Scripts SQL](criando_tabelas.sql)
+[Script de Criação de Tabelas](SQLScripts/criando_tabelas.sql)
+- [Script de Inserção de Dados](SQLScripts/inserindo_dados_propriedade.sql)
+- [Script de Atualização de Dados](SQLScripts/consultando_tabelas.sql)
 
 
   
