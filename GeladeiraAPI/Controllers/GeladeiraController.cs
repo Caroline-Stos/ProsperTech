@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using RepositorioEntity.Context;
 using RepositorioEntity.Models;
 using Servicos;
-using Microsoft.Extensions.Configuration;
-using System.ComponentModel;
 
 namespace GeladeiraAPI.Controllers
 {
@@ -26,7 +24,7 @@ namespace GeladeiraAPI.Controllers
             _service = new GeladeiraService(_contexto, _configuration);
         }
 
-        [HttpPost("AddItem")] // OK 
+        [HttpPost("AddItem")]  
         public ActionResult<string> Post(int container, int posicao, ItemModel itemModel)
         {
             try
@@ -39,7 +37,7 @@ namespace GeladeiraAPI.Controllers
             }
         }
 
-        [HttpGet("ListarItens")] // Ok
+        [HttpGet("ListarItens")] 
         public ActionResult<List<Item>> Get()
         {
             try
@@ -52,7 +50,7 @@ namespace GeladeiraAPI.Controllers
             }
         }
 
-        [HttpGet("GetItemById")] // Ok
+        [HttpGet("GetItemById")] 
         public ActionResult<Item> Get(int id)
         {
             try
@@ -69,7 +67,7 @@ namespace GeladeiraAPI.Controllers
 
         }
 
-        [HttpDelete("DeletarItem")] // Ok
+        [HttpDelete("DeletarItem")] 
         public ActionResult<string> Delete(int id)
         {
             try
@@ -82,7 +80,7 @@ namespace GeladeiraAPI.Controllers
             }
         }
 
-        [HttpPut("AtualizarNomeItem")] // Ok
+        [HttpPut("AtualizarNomeItem")] 
         public ActionResult<string> Put(ItemModel item)
         {
             try
@@ -95,7 +93,7 @@ namespace GeladeiraAPI.Controllers
             }
         }
 
-        [HttpDelete("EsvaziarContainer")] // Ok
+        [HttpDelete("EsvaziarContainer")] 
         public ActionResult<string> DeleteContainer(int containerId)
         {
             try

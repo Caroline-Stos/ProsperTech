@@ -1,11 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using RepositorioEntity.Context;
 using RepositorioEntity.Models;
 using Model.Geladeira;
-using static System.Net.Mime.MediaTypeNames;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace Servicos
 {
@@ -54,14 +50,11 @@ namespace Servicos
                         ContainerId = container,
                         PosicaoId = posicao
                     };
-
-                    // Adiciona o item ao contexto
+                   
                     _contexto.Items.Add(novoItem);
-
-                    // Salva as alterações no banco de dados
+                 
                     _contexto.SaveChanges();
-
-                    // Confirma a transação
+                  
                     transaction.Commit();
                     return "Item adicionado com sucesso!";
                 }
@@ -138,7 +131,7 @@ namespace Servicos
                 }
                 catch
                 {
-                    return "Erro ao excluir item.";
+                    throw new Exception("Erro ao excluir item.");                   
                 }
             }
 
@@ -169,11 +162,7 @@ namespace Servicos
                     {
                         return "Item inválido!";
                     }
-                }
-                catch (SqlException)
-                {
-                    return "Não foi possível se comunicar com a base de dados!";
-                }
+                }                
                 catch
                 {
                     throw new Exception("Erro ao atualizar item.");
@@ -216,18 +205,12 @@ namespace Servicos
                     transaction.Commit();
                     return "Container esvaziado com sucesso!";
 
-                }
-                catch (SqlException)
-                {
-                    return "Não foi possível se comunicar com a base de dados!";
-                }
+                }             
                 catch
                 {
                     throw new Exception("Erro ao tentar esvaziar container.");
                 }
             }
         }
-
-        //StatusContainer
     }
 }
