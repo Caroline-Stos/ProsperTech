@@ -4,15 +4,15 @@
 
 #### Versões utilizadas no projeto:
 
-- SQLServer 11.0 (2019)
+- SQLServer 11.0 (2019);
 - Visual Studio 17.11.1;
-- ASP.Net8.0
+- ASP.Net8.0;
 
 ## Visual Studio
 
 - Faça o git clone do projeto no Visual Studio;
 
-- Alterne de branch "*master*" para "*GeladeiraAPI*"
+- Alterne de branch "*master*" para "*GeladeiraAPI*":
 
 - Certifique-se de ter instalado no seu ambiente os pacotes necessários:
   
@@ -59,7 +59,7 @@
 ```bash
 Scaffold-DbContext "Server=localhost;Database=GeladeiraDB;Uid=**seu_user_id**;Pwd=**sua_senha**;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
-- Deve apresentar essa mensagem:
+- Deve apresentar esta mensagem:
 
   ![image](https://github.com/user-attachments/assets/514de723-a693-4656-8257-1013ef199e78)
 
