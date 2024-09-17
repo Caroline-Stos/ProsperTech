@@ -2,6 +2,11 @@ using Microsoft.Extensions.Options;
 using RepositorioEntity.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
+using Model.Geladeira;
+using RepositorioEntity.Interfaces;
+using RepositorioEntity.Repository;
+using Servicos.Interfaces;
+using Servicos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +23,12 @@ builder.Services.AddDbContext<GeladeiraDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Adicionando o Repository à injeção de dependência
+builder.Services.AddScoped<IRepository<ItemModel>, GeladeiraRepository>();
+
+// Adicionando o Service à injeção de dependência (caso tenha um serviço adicional)
+builder.Services.AddScoped<IService<ItemModel>, GeladeiraService>();
 
 var app = builder.Build();
 

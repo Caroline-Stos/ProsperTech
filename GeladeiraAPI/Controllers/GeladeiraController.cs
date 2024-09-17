@@ -1,27 +1,20 @@
 ﻿using Model.Geladeira;
 using Microsoft.AspNetCore.Mvc;
-using RepositorioEntity.Context;
 using RepositorioEntity.Models;
-using Servicos;
+using Servicos.Interfaces;
 
 namespace GeladeiraAPI.Controllers
 {
-    // Atividade - Aula 15: Geladeira API
-    // Feito por: Adrielly Ribeiro da Silva, Aline dos Santos Araújo, Caroline de Lima Santos e Lillyan de Santana Rodrigues Teixeira
-
+   
     [Route("api/[controller]")]
     [ApiController]
     public class GeladeiraController : ControllerBase
     {
-        GeladeiraDbContext _contexto;
-        IConfiguration _configuration;
-        GeladeiraService _service;
+        IService<ItemModel> _service;
 
-        public GeladeiraController(IConfiguration configuration, GeladeiraDbContext contexto)
+        public GeladeiraController(IService<ItemModel> service)
         {
-            _configuration = configuration;
-            _contexto = contexto;
-            _service = new GeladeiraService(_contexto, _configuration);
+            _service = service;
         }
 
         [HttpPost("AddItem")]  
